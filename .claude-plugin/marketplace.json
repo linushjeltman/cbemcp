@@ -8,21 +8,12 @@
   "plugins": [
     {
       "name": "cloudbackend-paas",
-      "description": "Upload and deploy XIOS/3 applications to CloudBackend PaaS, with a skill for the authoring workflow",
+      "description": "Build XIOS/3 applications and deploy them to CloudBackend PaaS: the documentation lookups, the upload and deploy tools, and a skill for the authoring workflow",
       "author": {
         "name": "CloudBackend"
       },
       "category": "development",
       "source": "./plugins/cloudbackend-paas"
-    },
-    {
-      "name": "xios-docs",
-      "description": "Look up how XIOS/3 works: components, operations, functions, methods, events, actions and concepts",
-      "author": {
-        "name": "CloudBackend"
-      },
-      "category": "development",
-      "source": "./plugins/xios-docs"
     }
   ]
 }

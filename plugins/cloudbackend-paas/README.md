@@ -1,15 +1,18 @@
 # cloudbackend-paas
 
-The CloudBackend PaaS MCP server, plus a skill for authoring XIOS/3 applications:
+Everything needed to build a XIOS/3 application and get it onto CloudBackend PaaS. One
+install, two MCP servers:
 
-- `upload_project` — write a project into the database, validating it against the schema
-- `deploy` — publish an uploaded project
+- `cbemcp` — `upload_project` writes a project into the database, validating it against
+  the schema, and `deploy` publishes it
+- `xios` — the XIOS/3 documentation lookups: `xios_concepts`, `xios_list`,
+  `xios_component`, `xios_operation`, `xios_function`, `xios_method`, `xios_event`,
+  `xios_action` and `xios_icons`
 - the `xios-apps` skill — project layout, the manifest, and the rules that make a deploy
   fail
 
-The documentation tools are a separate install. If you want Claude to look up how a
-component or an operation works while it writes the XML, install `xios-docs` as well; the
-two are independent and each has its own login.
+The documentation tools are what keep the XML from being guesswork, so they ship together
+with the deploy tools rather than as a second install.
 
 ## Installing
 
@@ -19,32 +22,20 @@ two are independent and each has its own login.
 /mcp
 ```
 
-Set `CBE_TENANT` first, see below. `/mcp` runs the OAuth login for this server only.
+Restart Claude Code after installing: connectors are read at startup. `/mcp` then runs the
+OAuth login, once per server.
 
-If you already have `cbemcp` configured by hand, remove it after installing, or the same
-tools show up twice:
+If you already have `cbemcp` or `xios` configured by hand, remove them after installing, or
+the same tools show up twice:
 
 ```bash
 claude mcp remove cbemcp -s user
+claude mcp remove xios -s user
 ```
-
-## Which tenant
-
-The server URL carries the tenant, so the plugin reads it from the environment:
-
-```
-https://mcp.cloudbackend.com/mcp/${CBE_TENANT:-cbetesttenantshopfinity}
-```
-
-Set `CBE_TENANT` to your own tenant, in your shell or in the `env` block of
-`~/.claude/settings.json`. The tenant selects the Keycloak realm you log in to, so on the
-wrong one the login fails rather than writing anywhere unexpected. The default is the test
-tenant and is there so the plugin works before it is configured, not because it is the
-right tenant for anyone.
 
 ## How the login works
 
-The connector pins a pre-registered OAuth client rather than registering one on the fly:
+Both connectors pin a pre-registered OAuth client rather than registering one on the fly:
 
 ```json
 "oauth": {
@@ -53,10 +44,26 @@ The connector pins a pre-registered OAuth client rather than registering one on 
 }
 ```
 
-Both parts are required. Dynamic Client Registration cannot ask for the `full` scope the
-server's token verifier insists on, so a client that registers itself gets a token every
-tool call rejects. The callback port is fixed because the redirect URI is registered on
-the client, so leave port 8080 free while you log in.
+Both parts are required. Dynamic Client Registration cannot ask for the scopes these
+servers require — `full` for `cbemcp`, `xios:read` for `xios` — so a client that registers
+itself gets a token every tool call rejects. The callback port is fixed because the
+redirect URI is registered on the client, so leave port 8080 free while you log in.
+
+The two servers are separate resources with separate scopes, so each is logged in to
+separately even though they share the client and the Keycloak realm. You need an account
+in that realm for either one, the read-only documentation tools included.
+
+## Which tenant
+
+Proof of concept: the tenant is hardcoded to the test tenant.
+
+```
+https://mcp.cloudbackend.com/mcp/cbetesttenantshopfinity
+```
+
+The tenant in the URL selects the Keycloak realm you log in to, and `xios-mcp-client` is
+only registered in that realm so far. Pointing this at another tenant means registering
+the client there first, otherwise the login fails with "Client not found".
 
 ## For a whole team, without anyone typing commands
 
@@ -73,11 +80,10 @@ Declare the marketplace and the plugin in managed or user settings instead:
     }
   },
   "enabledPlugins": {
-    "cloudbackend-paas@cloudbackend": true,
-    "xios-docs@cloudbackend": true
+    "cloudbackend-paas@cloudbackend": true
   }
 }
 ```
 
-Everyone who gets that settings file has the plugins on their next session. They still
-need their own `CBE_TENANT`, and they still log in to each server separately.
+Everyone who gets that settings file has the plugin on their next session. They still log
+in to each server themselves.

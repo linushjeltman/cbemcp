@@ -2,7 +2,15 @@
   "mcpServers": {
     "cbemcp": {
       "type": "http",
-      "url": "https://mcp.cloudbackend.com/mcp/${CBE_TENANT:-cbetesttenantshopfinity}",
+      "url": "https://mcp.cloudbackend.com/mcp/cbetesttenantshopfinity",
+      "oauth": {
+        "clientId": "xios-mcp-client",
+        "callbackPort": 8080
+      }
+    },
+    "xios": {
+      "type": "http",
+      "url": "https://mcp.xios3.com/mcp",
       "oauth": {
         "clientId": "xios-mcp-client",
         "callbackPort": 8080

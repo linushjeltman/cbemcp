@@ -5,12 +5,11 @@ description: Build a XIOS/3 application and get it onto CloudBackend PaaS - proj
 
 # XIOS/3 applications
 
-This plugin provides the `cbemcp` server: `upload_project` writes a project into the
-database and `deploy` publishes it.
-
-The documentation tools are a separate install, the `xios-docs` plugin, which provides the
-`xios` server: `xios_concepts`, `xios_list`, `xios_component`, `xios_operation`,
-`xios_function`, `xios_method`, `xios_event`, `xios_action` and `xios_icons`.
+This plugin provides two servers. `cbemcp` gets a project onto CloudBackend PaaS:
+`upload_project` writes it into the database and `deploy` publishes it. `xios` answers
+questions about the framework: `xios_concepts`, `xios_list`, `xios_component`,
+`xios_operation`, `xios_function`, `xios_method`, `xios_event`, `xios_action` and
+`xios_icons`.
 
 ## Look it up, don't guess
 
@@ -23,8 +22,9 @@ takes topics such as `ui layout and views`, `process logic`, `data binding`,
 `aliases (variables)`, `expressions`, `rules`, `events`, `components`,
 `component patterns`, `styling and themes` and `advanced patterns`.
 
-Without those tools installed, say so rather than guessing at attribute names: upload
-validates against the schema and a guess usually comes back as a validation failure.
+If the `xios_*` tools are unavailable — the server not logged in, say — say so rather
+than guessing at attribute names: upload validates against the schema and a guess usually
+comes back as a validation failure.
 
 ## Project layout
 

@@ -1,8 +1,0 @@
-{
-  "name": "xios-docs",
-  "description": "Look up how XIOS/3 works: components, operations, functions, methods, events, actions and concepts",
-  "version": "1.0.0",
-  "author": {
-    "name": "CloudBackend"
-  }
-}
