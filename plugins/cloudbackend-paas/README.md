@@ -42,6 +42,22 @@ wrong one the login fails rather than writing anywhere unexpected. The default i
 tenant and is there so the plugin works before it is configured, not because it is the
 right tenant for anyone.
 
+## How the login works
+
+The connector pins a pre-registered OAuth client rather than registering one on the fly:
+
+```json
+"oauth": {
+  "clientId": "xios-mcp-client",
+  "callbackPort": 8080
+}
+```
+
+Both parts are required. Dynamic Client Registration cannot ask for the `full` scope the
+server's token verifier insists on, so a client that registers itself gets a token every
+tool call rejects. The callback port is fixed because the redirect URI is registered on
+the client, so leave port 8080 free while you log in.
+
 ## For a whole team, without anyone typing commands
 
 Declare the marketplace and the plugin in managed or user settings instead:

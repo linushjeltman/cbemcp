@@ -18,6 +18,11 @@ else, so it is useful on its own, whether or not you deploy anything:
 CloudBackend PaaS, so you need an account there even though the tools are read-only
 documentation.
 
+The connector pins the same pre-registered OAuth client as `cloudbackend-paas`,
+`xios-mcp-client` on callback port 8080. This server asks for the `xios:read` scope rather
+than `full`, but the client covers both, and a self-registered client covers neither.
+Leave port 8080 free while you log in: the redirect URI is registered on the client.
+
 If you already have `xios` configured by hand, remove it after installing, or the same
 tools show up twice:
 
