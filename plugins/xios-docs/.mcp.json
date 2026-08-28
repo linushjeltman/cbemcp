@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "xios": {
+      "type": "http",
+      "url": "${XIOS_MCP_URL:-https://mcp.xios3.com/mcp}"
+    }
+  }
+}

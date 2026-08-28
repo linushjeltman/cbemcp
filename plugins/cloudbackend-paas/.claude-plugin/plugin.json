@@ -1,0 +1,8 @@
+{
+  "name": "cloudbackend-paas",
+  "description": "Upload and deploy XIOS/3 applications to CloudBackend PaaS, with a skill for the authoring workflow",
+  "version": "1.0.0",
+  "author": {
+    "name": "CloudBackend"
+  }
+}

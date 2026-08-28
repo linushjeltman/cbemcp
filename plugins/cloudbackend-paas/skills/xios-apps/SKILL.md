@@ -5,25 +5,26 @@ description: Build a XIOS/3 application and get it onto CloudBackend PaaS - proj
 
 # XIOS/3 applications
 
-Two MCP servers cover this work and they are used in this order:
+This plugin provides the `cbemcp` server: `upload_project` writes a project into the
+database and `deploy` publishes it.
 
-- `xios` — documentation. `xios_concepts`, `xios_list`, `xios_component`, `xios_operation`,
-  `xios_function`, `xios_method`, `xios_event`, `xios_action`, `xios_icons`.
-- `cbemcp` — CloudBackend PaaS. `upload_project` writes the project into the database,
-  `deploy` publishes it.
+The documentation tools are a separate install, the `xios-docs` plugin, which provides the
+`xios` server: `xios_concepts`, `xios_list`, `xios_component`, `xios_operation`,
+`xios_function`, `xios_method`, `xios_event`, `xios_action` and `xios_icons`.
 
 ## Look it up, don't guess
 
 XIOS/3 is XML with a schema behind it, and attribute names do not follow from the tag
-names. Before writing markup for a component you have not used in this session, call
-`xios_component` for it and use the attributes it lists. The same goes for `xios_operation`
-before writing a process step.
+names. When the `xios_*` tools are available, call `xios_component` for a component you
+have not used in this session and use the attributes it lists, and `xios_operation` before
+writing a process step. `xios_list` with `components`, `operations`, `functions`,
+`methods`, `events`, `actions` or `concepts` returns just the names, and `xios_concepts`
+takes topics such as `ui layout and views`, `process logic`, `data binding`,
+`aliases (variables)`, `expressions`, `rules`, `events`, `components`,
+`component patterns`, `styling and themes` and `advanced patterns`.
 
-Useful entry points: `xios_list` with `components`, `operations`, `functions`, `methods`,
-`events`, `actions` or `concepts` returns just the names, and `xios_concepts` takes topics
-such as `ui layout and views`, `process logic`, `data binding`, `aliases (variables)`,
-`expressions`, `rules`, `events`, `components`, `component patterns`, `styling and themes`
-and `advanced patterns`.
+Without those tools installed, say so rather than guessing at attribute names: upload
+validates against the schema and a guess usually comes back as a validation failure.
 
 ## Project layout
 

@@ -1,8 +1,0 @@
-{
-  "name": "cloudbackend-xios",
-  "description": "Build XIOS/3 applications: look up how XIOS/3 works, then upload and deploy to CloudBackend PaaS",
-  "version": "1.0.0",
-  "author": {
-    "name": "CloudBackend"
-  }
-}
